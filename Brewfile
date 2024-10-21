@@ -1,6 +1,6 @@
 cask_args appdir: '/Applications'
 
-tap "homebrew/cask"
+# tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "mas-cli/tap"
 
@@ -18,6 +18,7 @@ brew 'bat'
 brew 'fx'
 brew 'nvm'
 brew 'thefuck'
+brew 'fzf'
 
 cask '1password'
 cask 'slack'
@@ -37,3 +38,4 @@ cask 'bettertouchtool'
 cask 'bartender'
 cask 'obsidian'
 cask 'iterm2'
+cask 'lookaway'
