@@ -69,5 +69,10 @@ ssh-add -K  &>/dev/null
 
 eval $(thefuck --alias)
 
-source /Users/kylee/.docker/init-zsh.sh || true # Added by Docker Desktop
 export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/kylee/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
