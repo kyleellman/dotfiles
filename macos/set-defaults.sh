@@ -41,6 +41,16 @@ chflags nohidden ~/Library
 #defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 
+# Disable Cmd+Shift+I browser shortcuts that open Mail app.
+# Safari is sandboxed — requires Terminal to have Full Disk Access in System Settings > Privacy & Security.
+defaults write com.apple.Safari NSUserKeyEquivalents -dict-add 'Email Link' '\0' 2>/dev/null || true
+defaults write com.google.Chrome NSUserKeyEquivalents -dict-add 'Email Link' '\0'
+defaults write org.mozilla.firefox NSUserKeyEquivalents -dict-add 'Email Link' '\0'
+defaults write com.microsoft.edgemac NSUserKeyEquivalents -dict-add 'Email Page Location' '\0'
+
+# Apply preference changes without rebooting.
+killall cfprefsd
+
 ### TODO
 # tap to click for track pad see com.apple.driver.AppleBluetoothMultitouch.trackpad and read com.apple.AppleMultitouchTrackpad clicking setting
 # macbook caps lock to esc: https://github.com/geerlingguy/mac-dev-playbook/issues/22
