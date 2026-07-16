@@ -1,19 +1,32 @@
-#!/bin/sh
+#!/bin/zsh
 #
 # The PR has been merged, remote branch likely deleted from the web.
-# Check out master, pull from origin, and delete original branch.
-#
-# $1 - name of remote, origin used as default
+# Check out main, pull from origin, and delete original branch.
+# If run from a git worktree, removes the worktree instead.
 #
 
+local branch
 branch="$(git symbolic-ref --short -q HEAD)"
 
-if [[ $branch == 'main' ]]
-then
-    echo "You probably don't want to delete the main branch, eh?"
-    exit 1
+if [[ "$branch" == 'main' ]]; then
+  echo "You probably don't want to delete the main branch, eh?"
+  exit 1
 fi
 
-git checkout main
-git pull origin main
-git branch -D $branch
+local git_dir git_common_dir
+git_dir="$(git rev-parse --git-dir)"
+git_common_dir="$(git rev-parse --git-common-dir)"
+
+if [[ "$git_dir" != "$git_common_dir" ]]; then
+  local worktree_path main_root
+  worktree_path="$(pwd)"
+  main_root="$(git worktree list | awk 'NR==1 {print $1}')"
+  cd "$main_root"
+  git pull origin main
+  git worktree remove "$worktree_path"
+  git branch -D "$branch"
+else
+  git checkout main
+  git pull origin main
+  git branch -D "$branch"
+fi
