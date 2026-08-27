@@ -19,6 +19,7 @@ brew 'fx'
 brew 'nvm'
 brew 'thefuck'
 brew 'fzf'
+brew 'mise'
 
 cask '1password'
 cask 'slack'
